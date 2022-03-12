@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -22,28 +22,36 @@ const ExpenseForm = () => {
   const onSubmitedForm = (event) => {
       event.preventDefault(); // To prevent reloading again
       const expenseData = {
+          id: Math.random().toString,
           title: title,
           amount: amount,
           date: new Date(date),
       };
-      console.log(expenseData);
+      
+      // Returning data to NewExpense.js class
+      props.onSaveExpenseData(expenseData);
+
+      setTitle('');
+      setAmount('');
+      setDate('');
   }
 
   return (
     <form onSubmit={onSubmitedForm}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
-          <label>{title}</label>
-          <input type="text" onChange={onInputTitleChange} />
+          <label>Title</label>
+          <input type="text" value={title} onChange={onInputTitleChange} />
         </div>
         <div className="new-expense__control">
-          <label>{amount}</label>
-          <input type="number" onChange={onInputAmountChange} />
+          <label>Amount</label>
+          <input type="number" value={amount} onChange={onInputAmountChange} />
         </div>
         <div className="new-expense__control">
-          <label>{date}</label>
+          <label>Date</label>
           <input
             type="date"
+            value={date}
             min="2019-01-01"
             max="2022-12-31"
             onChange={onInputDateChange}
