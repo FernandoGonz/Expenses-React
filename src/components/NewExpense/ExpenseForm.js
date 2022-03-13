@@ -20,21 +20,21 @@ const ExpenseForm = (props) => {
   };
 
   const onSubmitedForm = (event) => {
-      event.preventDefault(); // To prevent reloading again
-      const expenseData = {
-          id: Math.random().toString,
-          title: title,
-          amount: amount,
-          date: new Date(date),
-      };
-      
-      // Returning data to NewExpense.js class
-      props.onSaveExpenseData(expenseData);
+    event.preventDefault(); // To prevent reloading again
+    const expenseData = {
+      id: Math.random().toString,
+      title: title,
+      amount: +amount,
+      date: new Date(date),
+    };
 
-      setTitle('');
-      setAmount('');
-      setDate('');
-  }
+    // Returning data to NewExpense.js class
+    props.onSaveExpenseData(expenseData);
+
+    setTitle("");
+    setAmount("");
+    setDate("");
+  };
 
   return (
     <form onSubmit={onSubmitedForm}>
@@ -59,6 +59,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.onCancelEditing}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
